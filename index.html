@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt Manager</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Prompt Manager</h1>
+        <div class="section">
+            <h2 class="subtitle">Add New Prompt</h2>
+            <form id="addPromptForm" class="form">
+                <textarea name="prompt" class="textarea" placeholder="Enter your prompt here" required></textarea>
+                <button type="submit" class="button">Save Prompt</button>
+            </form>
+        </div>
+        <div class="section">
+            <h2 class="subtitle">Saved Prompts</h2>
+            <ul id="promptList" class="prompt-list"></ul>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
