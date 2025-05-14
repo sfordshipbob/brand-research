@@ -122,3 +122,55 @@ body {
     background-color: #005b96; /* Darker blue on hover */
 }
 </style>
+
+
+<script>
+document.getElementById('addPromptForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const prompt = this.prompt.value;
+    savePrompt(prompt);
+    this.reset();
+});
+
+function savePrompt(prompt) {
+    fetch('/save_prompt', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ prompt: prompt }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            loadPrompts();
+        }
+    });
+}
+
+function loadPrompts() {
+    fetch('/get_prompts')
+    .then(response => response.json())
+    .then(data => {
+        const promptList = document.getElementById('promptList');
+        promptList.innerHTML = '';
+        data.prompts.forEach(prompt => {
+            const li = document.createElement('li');
+            li.textContent = prompt.text;
+            const button = document.createElement('button');
+            button.textContent = 'Use in Grok';
+            button.onclick = () => openGrok(prompt.text);
+            li.appendChild(button);
+            promptList.appendChild(li);
+        });
+    });
+}
+
+function openGrok(prompt) {
+    const grokUrl = `https://grok-interface.com?prompt=${encodeURIComponent(prompt)}`;
+    window.open(grokUrl, '_blank');
+}
+
+loadPrompts();
+</script>
+
